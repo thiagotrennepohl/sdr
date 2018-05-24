@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	sdrcli "github.com/thiagotrennepohl/sdr/sdr/cmd"
 	repository "github.com/thiagotrennepohl/sdr/sdr/repository"
 	usecase "github.com/thiagotrennepohl/sdr/sdr/usecase"
@@ -30,4 +32,7 @@ func main() {
 	}
 
 	err = sdrCli.StoreData(csv, headers)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
