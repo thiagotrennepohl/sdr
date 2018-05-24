@@ -48,6 +48,7 @@ func (s *sdrCLI) ReadCSV(filePath string) (*csv.Reader, error) {
 	return csvReader, err
 }
 
+//StoreData
 func (s *sdrCLI) StoreData(csv *csv.Reader, headers []string) error {
 
 	var csvData []interface{}
