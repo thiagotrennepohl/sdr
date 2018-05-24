@@ -50,7 +50,7 @@ func (s *sdrCLI) ReadCSV(filePath string) (*csv.Reader, error) {
 
 func (s *sdrCLI) StoreData(csv *csv.Reader, headers []string) error {
 
-	csvData := make([]map[string]interface{}, 0)
+	var csvData []interface{}
 	for {
 		line, err := csv.Read()
 		if err == io.EOF {
@@ -65,6 +65,6 @@ func (s *sdrCLI) StoreData(csv *csv.Reader, headers []string) error {
 		}
 	}
 
-	s.sdrUseCase.StoreBatch
-	return nil
+	err := s.sdrUseCase.StoreBatch(csvData)
+	return err
 }
