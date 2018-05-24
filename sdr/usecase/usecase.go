@@ -35,6 +35,7 @@ func (sdr *sdrUsecase) StoreData(batch map[string]interface{}) error {
 	return nil
 }
 
-func (sdr *sdrUsecase) StoreBatch(batch []map[string]interface{}) error {
-
+func (sdr *sdrUsecase) StoreBatch(batch []interface{}) error {
+	err := sdr.sdrRepository.StoreBatch(batch)
+	return err
 }
