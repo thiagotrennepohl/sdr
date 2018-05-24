@@ -20,3 +20,13 @@ func (sdr *sdrRepository) StoreData(document interface{}) error {
 	err := conn.Insert(document)
 	return err
 }
+
+func (sdr *sdrRepository) StoreBatch(documents []interface{}) error {
+	session := sdr.session.Copy()
+	defer session.Close()
+	conn := session.DB("").C("somecollection")
+	bulk := conn.Bulk()
+	bulk.Insert(documents...)
+	_, err := bulk.Run()
+	return err
+}
