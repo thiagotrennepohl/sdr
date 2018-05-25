@@ -1,4 +1,4 @@
-package cmd
+package sdr
 
 import "errors"
 
