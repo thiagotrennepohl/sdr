@@ -6,6 +6,7 @@ NAME    = sdr
 VERSION = 1.0.0
 GOTOOLS = \
 	github.com/golang/dep/cmd/dep
+	
 
 all: goget build docker docker-push
 
@@ -16,8 +17,8 @@ clean: ## Remove old binary
 	-@rm -f $(NAME)-app; \
 	find vendor/* -maxdepth 0 -type d -exec rm -rf '{}' \;
 
-goget: tools ## [tools] Download dependencies
-	dep ensure
+goget:  ## [tools] Download dependencies
+	go get ./...
 
 build: clean  ## [clean test] Build binary file
 	CGO_ENABLED=0 go build -v -a -installsuffix cgo -o $(NAME)-app .
