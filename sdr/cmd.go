@@ -42,12 +42,21 @@ func (sdr *sdr) fixHeaders(headers []string) []string {
 	return headers
 }
 
-func (s *sdr) ReadCSV(file *os.File) *csv.Reader {
+func (s *sdr) ReadCSV(filePath string) (*csv.Reader, error) {
+	_, err := os.Stat(filePath)
+	if err != nil {
+		return nil, FILE_NOT_FOUND_ERR
+	}
+
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, ERROR_OPENING_FILE
+	}
 
 	csvReader := csv.NewReader(bufio.NewReader(file))
 	csvReader.Comma = s.commaDelimiter
 
-	return csvReader
+	return csvReader, nil
 }
 
 //StoreData
