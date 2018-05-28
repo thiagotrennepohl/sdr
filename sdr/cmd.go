@@ -37,26 +37,17 @@ func (sdr *sdr) fixHeaders(headers []string) []string {
 	for index, value := range headers {
 		value = strings.Trim(value, " ")
 		value = strings.Replace(value, " ", "_", -1)
-		headers[index] = strings.ToUpper(value)
+		headers[index] = value
 	}
 	return headers
 }
 
-func (s *sdr) ReadCSV(filePath string) (*csv.Reader, error) {
-	_, err := os.Stat(filePath)
-	if err != nil {
-		return nil, FILE_NOT_FOUND_ERR
-	}
-
-	file, err := os.Open(filePath)
-	if err != nil {
-		return nil, ERROR_OPENING_FILE
-	}
+func (s *sdr) ReadCSV(file *os.File) *csv.Reader {
 
 	csvReader := csv.NewReader(bufio.NewReader(file))
 	csvReader.Comma = s.commaDelimiter
 
-	return csvReader, err
+	return csvReader
 }
 
 //StoreData
@@ -73,8 +64,8 @@ func (s *sdr) Extract(csv *csv.Reader, headers []string) ([]map[string]interface
 		data := make(map[string]interface{})
 		for index, value := range line {
 			data[headers[index]] = value
-			csvData = append(csvData, data)
 		}
+		csvData = append(csvData, data)
 	}
 
 	return csvData, nil
