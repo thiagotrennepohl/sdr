@@ -7,7 +7,7 @@ VERSION = 1.0.0
 GOTOOLS = \
 	github.com/golang/dep/cmd/dep
 
-all: tools goget build docker docker-push
+all: goget build docker docker-push
 
 tools: ## Install tools for test cover and dep mgmt
 	go get -u -v $(GOTOOLS)
