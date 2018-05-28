@@ -9,11 +9,11 @@ import (
 )
 
 type sdr struct {
-	commaDelimiter rune
+	commaDelimiter string
 }
 
 type SdrConfig struct {
-	CommaDelimiter rune
+	CommaDelimiter string
 }
 
 func NewSdr(sdrconfig SdrConfig) Sdr {
@@ -54,7 +54,7 @@ func (s *sdr) ReadCSV(filePath string) (*csv.Reader, error) {
 	}
 
 	csvReader := csv.NewReader(bufio.NewReader(file))
-	csvReader.Comma = s.commaDelimiter
+	csvReader.Comma = rune(s.commaDelimiter[0])
 
 	return csvReader, nil
 }
